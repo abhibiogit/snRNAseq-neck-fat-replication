@@ -1,6 +1,6 @@
 # Figures
 
-Maps each figure to the script/pipeline stage that generated it, and to the
+Mapping of each figure to the script/pipeline stage that generated it, and to the
 corresponding figure in the original paper (Shamsi et al. 2021), where
 applicable.
 
