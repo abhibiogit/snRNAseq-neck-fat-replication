@@ -40,11 +40,17 @@ Seurat), built to develop hands-on experience with modern snRNA-seq workflow.
 ## Pipeline overview
 
 | Step | Script | Tool | Key operation | Output |
-| 1 | [`scripts/01_qc_filtering_h5ad_export.R`](scripts/01_qc_filtering_h5ad_export.R) | R — DropletUtils, sceasy | Read 10x counts, barcode rank QC per sample (`barcodeRanks`), select the 4 `nF` samples that passed, keep top 1,000 barcodes by UMI, remove doublets (UMI > 20,000), export each sample to `.h5ad` via `sceasy::convertFormat()` | 4 per-sample `.h5ad` files |
-| 2 | [`scripts/02_scvi_integration_umap.ipynb`](scripts/02_scvi_integration_umap.ipynb) | Python — Scanpy, scvi-tools | `ad.concat()` with `label="batch_indices"`, switch var_names to gene symbols, filter genes in <3 nuclei, select top 2,000 HVGs (`flavor="cell_ranger"`), integrate with `scvi.model.SCVI` (n_latent=20, gene_likelihood="nb", max_epochs=400, lr=1e-3), `sc.pp.neighbors` on `X_scVI`, `sc.tl.umap` | One integrated `.h5ad` (`H_BAT_nF_integrated.h5ad`) with latent space + UMAP |
-| 3 | [`scripts/03_seurat_clustering_marker_id.R`](scripts/03_seurat_clustering_marker_id.R) | R — Seurat, sceasy | Convert integrated `.h5ad` to a Seurat object via `sceasy::convertFormat()`, normalize/scale, `FindNeighbors` on the `scVI` reduction (20 dims), `FindClusters` (res=0.5), `FindAllMarkers`, identify adipocyte (ADIPOQ+, cluster 2) and APC (PDGFRA+, cluster 3) clusters, subset and recluster (res=0.8) | Annotated Seurat object, marker CSVs, UMAP/feature/violin plots |
+| 1 | `01_qc_filtering_h5ad_export.R` | R (DropletUtils, sceasy) | Barcode rank QC, sample filtering, doublet removal | 4 per-sample `.h5ad` files |
+| 2 | `02_scvi_integration_umap.ipynb` | Python (Scanpy, scvi-tools) | Concatenation, HVG selection, scVI integration, UMAP | Integrated `.h5ad` (latent space + UMAP) |
+| 3 | `03_seurat_clustering_marker_id.R` | R (Seurat, sceasy) | Clustering, marker ID, adipocyte/APC subset + recluster | Annotated Seurat object, marker CSVs, figures |
 
+**Details per step:**
 
+**1. QC and filtering** — Read 10x counts, compute barcode ranks (`barcodeRanks`), select the 4 `nF` samples that passed QC, keep the top 1,000 barcodes by UMI count, remove doublets (UMI > 20,000), export each sample to `.h5ad` via `sceasy::convertFormat()`.
+
+**2. scVI integration** — `ad.concat()` with `label="batch_indices"`, switch to gene symbols, filter genes in <3 nuclei, select top 2,000 HVGs (`flavor="cell_ranger"`), integrate with `scvi.model.SCVI` (n_latent=20, gene_likelihood="nb", max_epochs=400, lr=1e-3), compute neighbors on `X_scVI` and UMAP.
+
+**3. Seurat clustering** — Convert `.h5ad` to Seurat via `sceasy::convertFormat()`, normalize/scale, `FindNeighbors` on the scVI reduction (20 dims), `FindClusters` (res=0.5), `FindAllMarkers`, identify adipocyte (ADIPOQ+, cluster 2) and APC (PDGFRA+, cluster 3) clusters, subset and recluster (res=0.8).
 ## Repository structure
 
 ```
