@@ -99,16 +99,19 @@ to match your local setup before running.
 
 ## Key results
 
-`![UMAP of integrated clusters](figures/umap_clusters/UMAP1.png)`
+![UMAP of integrated clusters](figures/umap_clusters/UMAP1.png)
 
-*Clusters 2 (ADIPOQ+, adipocytes) and 3 (PDGFRA+, adipocyte progenitor
-cells / APCs) were identified via feature and violin plots and subsetted for
-reclustering.
+Clusters 2 (ADIPOQ+, adipocytes) and 3 (PDGFRA+, adipocyte progenitor cells / APCs) were identified via feature and violin plots and subsetted for reclustering.*
 
-`![Adipocyte/APC subset UMAP](figures/umap_clusters/umap2.png)`
+![Adipocyte/APC subset UMAP](figures/umap_clusters/UMAP2.png)
+
+Clustering of adipocytes and adipocyte progenitor cells after subsetting.
+
+![Adipocyte/APC subset marker expression](figures/marker_dotplots/violinplot2.png)
+
+Violin plot identifying cluster 0 as the TRPV1+ adipocyte progenitor cell population.
 
 ## Comparison with the original paper
-
 
 - Samples passing QC: 4 of 9 (`H_BAT_nF_1–4`) were retained, matching the paper's
   reported sample set based on barcode rank inflection points.
