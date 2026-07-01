@@ -1,0 +1,36 @@
+name: sc
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - python=3.11
+  - pip
+  - seaborn
+  - scanpy
+  - python-igraph
+  - anndata
+  - jupyterlab
+  - leidenalg
+  - scipy
+  - numpy
+  - pandas
+  - h5py
+  - matplotlib
+  - ipykernel
+  # scvi-tools and the torch stack were installed via pip (pypi channel),
+  # not conda — required by scripts/02_scvi_integration_umap.ipynb
+  # (imports scvi, torch; trains with accelerator="gpu").
+  # Confirmed CUDA-enabled: `torch.cuda.is_available()` returns True in
+  # the original environment.
+  - pip:
+      - scvi-tools==1.4.2
+      - torch==2.12.1
+      - torchvision==0.27.1
+      - torchaudio==2.11.0
+      - torchmetrics==1.9.0
+      - pytorch-lightning==2.6.5
+      # If rebuilding on a different machine, verify CUDA is still
+      # correctly resolved after install:
+      #   python -c "import torch; print(torch.cuda.is_available())"
+      

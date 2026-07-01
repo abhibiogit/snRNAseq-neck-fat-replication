@@ -1,0 +1,28 @@
+# Raw and intermediate data (large, public — see data/README.md)
+data/raw/
+*.h5ad
+*.rds
+*.loom
+*.mtx
+
+# R
+.Rproj.user/
+.Rhistory
+.RData
+.Ruserdata
+
+# Python / Jupyter
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.venv/
+env/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Large model checkpoints (scVI)
+*.pt
+*.ckpt
+scvi_model/
