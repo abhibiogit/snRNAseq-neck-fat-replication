@@ -40,6 +40,7 @@ Seurat), built to develop hands-on experience with modern snRNA-seq workflow.
 ## Pipeline overview
 
 | Step | Script | Tool | Key operation | Output |
+|---|---|---|---|---|
 | 1 | `01_qc_filtering_h5ad_export.R` | R (DropletUtils, sceasy) | Barcode rank QC, sample filtering, doublet removal | 4 per-sample `.h5ad` files |
 | 2 | `02_scvi_integration_umap.ipynb` | Python (Scanpy, scvi-tools) | Concatenation, HVG selection, scVI integration, UMAP | Integrated `.h5ad` (latent space + UMAP) |
 | 3 | `03_seurat_clustering_marker_id.R` | R (Seurat, sceasy) | Clustering, marker ID, adipocyte/APC subset + recluster | Annotated Seurat object, marker CSVs, figures |
